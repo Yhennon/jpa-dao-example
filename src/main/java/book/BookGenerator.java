@@ -11,7 +11,7 @@ public class BookGenerator {
 
     private static Faker faker = new Faker (new Locale("en"));
 
-    private static Book randomBook() {
+    public static Book randomBook() {
         Book book = Book.builder()
                 .isbn13(faker.code().isbn13())
                 .author(faker.book().author())
