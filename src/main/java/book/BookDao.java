@@ -13,7 +13,7 @@ public class BookDao extends GenericJpaDao<Book> {
     @Transactional
     public Optional<Book> findByIsbn13(String isbn13) {
         try {
-            return Optional.of(entityManager.createQuery("SELECT u FROM Book u WHERE u.isbn13 = :isbn13", Book.class)
+            return Optional.of(entityManager.createQuery("SELECT i FROM Book i WHERE i.isbn13 = :isbn13", Book.class)
                     .setParameter("isbn13", isbn13)
                     .getSingleResult());
         } catch (NoResultException e) {
