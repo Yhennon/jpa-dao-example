@@ -6,6 +6,7 @@ import com.github.javafaker.Faker;
 
 import java.time.ZoneId;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class BookGenerator {
 
@@ -18,8 +19,8 @@ public class BookGenerator {
                 .title(faker.book().title())
                 .format(faker.options().option(Book.Format.class))
                 .publisher(faker.book().publisher())
-                .publicationDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-                .pages(faker.number().randomDigit())
+                .publicationDate(faker.date().past(36525, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .pages(faker.number().numberBetween(1,9999))
                 .available(faker.bool().bool())
                 .build();
         return book;
