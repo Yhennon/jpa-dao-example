@@ -5,7 +5,9 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import guice.PersistenceModule;
+import org.hibernate.sql.Select;
 
+import javax.persistence.EntityManager;
 import java.util.Scanner;
 
 
@@ -24,9 +26,14 @@ public class Main {
             Book book = bookGenerator.randomBook();
             bookDao.persist(book);
         }
-        bookDao.findAll()
-                .stream()
-                .forEach(System.out::println);
+
+        EntityManager em = bookDao.getEntityManager();
+
+        try {
+            em.createQuery("SELECT b FROM Book b", Book.class).getResultStream().forEach(System.out::println);
+        }finally {
+            em.close();
+        }
     }
 }
 
